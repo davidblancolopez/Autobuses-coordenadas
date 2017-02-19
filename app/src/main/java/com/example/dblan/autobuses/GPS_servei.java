@@ -13,11 +13,16 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 @SuppressWarnings("MissingPermission")
 public class GPS_servei extends Service {
     private LocationListener listener;
     private LocationManager locationManager;
-
+    private String dataActual;
 
 
 
@@ -37,7 +42,16 @@ public class GPS_servei extends Service {
             @Override
             public void onLocationChanged(Location location) {
                 Intent i = new Intent("location_update");
-                //Toast per mostrar missatge indicant que les dades són incorrectes.
+
+                //Recollim la data actual.
+                DateFormat data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date today = Calendar.getInstance().getTime();
+                dataActual = data.format(today);
+
+
+
+
+                //Toast per veure si esta recollint les dades.
                 Toast.makeText(GPS_servei.this, "latitud: " + location.getLatitude() + " logitud: " + location.getLongitude(),
                         Toast.LENGTH_LONG).show();
             }

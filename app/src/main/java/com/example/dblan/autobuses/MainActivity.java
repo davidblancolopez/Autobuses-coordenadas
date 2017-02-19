@@ -83,7 +83,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     /**
-     * Boton de enviar y el menu de seleccion de FECHA.
+     *onClick per a quan es pulsa 1 dels 2 botons.
+     * Si es pulsa start es fara la comprovació de l'usuari i contrasenya per a comprobar que son
+     * correctes i llavors iniciar el servei que recull les coordenades del dispositiu.
      * @param v
      */
     @Override
@@ -130,7 +132,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
 
-
+    /**
+     * Metoque que realitza la comprobació de l'usuari i contrasenya introduits.
+     * Si els 2 camps on correctes retornara true si no retornara false.
+     * @param matricula
+     * @param contrasenya
+     * @return
+     */
     public boolean comprovacio(String matricula, String contrasenya){
         boolean comprovar = false;
 
