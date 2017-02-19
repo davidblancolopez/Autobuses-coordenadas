@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation ="vertical"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:fontFamily="monospace"
+            android:textStyle="normal|bold"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="120dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:text="@string/matricula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/tvMatricula"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:id="@+id/etMatricula" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:text="@string/contrasenya"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvContrasenya"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/etContrasenya" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="100dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
+
+        <Button
+            android:text="@string/entrar"
+            android:layout_width="371dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonentrar" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="371dp"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="@string/sortir"
+            android:layout_width="371dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonSalir" />
+    </LinearLayout>
+
+
+
+</LinearLayout>
