@@ -26,9 +26,9 @@ public class BD extends SQLiteOpenHelper {
         db.execSQL(crearTabla2);
         db.execSQL(crearTabla3);
 
-        db.execSQL("INSERT INTO autobuses VALUES ('1111A', '1234')");
-        db.execSQL("INSERT INTO autobuses VALUES ('2222B', '4321')");
-        db.execSQL("INSERT INTO autobuses VALUES ('3333C', '1423')");
+        db.execSQL("INSERT INTO autobuses VALUES ('1111AAA', '1234')");
+        db.execSQL("INSERT INTO autobuses VALUES ('2222BBB', '4321')");
+        db.execSQL("INSERT INTO autobuses VALUES ('3333CCC', '1423')");
 
 
     }

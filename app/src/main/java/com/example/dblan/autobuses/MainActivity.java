@@ -67,7 +67,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnSubmit.setOnClickListener(this);
         btnStop.setOnClickListener(this);
     }
-    
+
 
 
     @Override
