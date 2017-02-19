@@ -60,25 +60,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
+
     private void enableButtons() {
-
-        btn_start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), GPS_servei.class);
-                startService(i);
-            }
-        });
-
-        btn_stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), GPS_servei.class);
-                stopService(i);
-            }
-        });
-
+        Button btnSubmit = (Button) findViewById(R.id.buttonentrar);
+        Button btnStop = (Button) findViewById(R.id.buttonSalir);
+        btnSubmit.setOnClickListener(this);
+        btnStop.setOnClickListener(this);
     }
+    
 
 
     @Override
@@ -118,14 +107,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 boolean permis = comprovacio(matricula, contrasenya);
                 if(permis){
-                    /*Intent j = new Intent(getApplicationContext(), GPS_servei.class);
-                    startService(j);
-                    //Anem a la següent activity.
-                    Intent i = new Intent(this,LogOutActivity.class);
-                    startActivity(i);
-
-                    //Finalitzem l'activity actual.
-                    finish();*/
+                    Intent i = new Intent(getApplicationContext(), GPS_servei.class);
+                    startService(i);
                 }else{
                     //Toast per mostrar missatge indicant que les dades són incorrectes.
                     Toast.makeText(MainActivity.this, "Usuari i/o contrasenya incorrectes.",
@@ -140,6 +123,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
 
 
+        }else if(v.getId() == R.id.buttonSalir){
+            Intent i = new Intent(getApplicationContext(), GPS_servei.class);
+            stopService(i);
         }
     }
 
