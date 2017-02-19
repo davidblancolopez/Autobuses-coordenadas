@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Android Base Datos</string>
+    <string name="app_name">Autobus</string>
     <string name="action_settings">Settings</string>
     <string name="login">LOGIN</string>
     <string name="matricula">Matricula:</string>
