@@ -110,7 +110,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 boolean permis = comprovacio(matricula, contrasenya);
                 if(permis){
                     Intent i = new Intent(getApplicationContext(), GPS_servei.class);
+                    i.putExtra("matricula", matricula);
                     startService(i);
+
                 }else{
                     //Toast per mostrar missatge indicant que les dades són incorrectes.
                     Toast.makeText(MainActivity.this, "Usuari i/o contrasenya incorrectes.",
@@ -184,6 +186,52 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }else{
                 runtime_permissionss();
             }
+        }
+    }
+
+    static class Coordenada{
+        private String matricula;
+        private double latitud;
+        private double longitud;
+        private String hora;
+
+        public Coordenada(String matricula, double latitud, double longitud, String hora) {
+            this.matricula = matricula;
+            this.latitud = latitud;
+            this.longitud = longitud;
+            this.hora = hora;
+        }
+
+        public String getMatricula() {
+            return matricula;
+        }
+
+        public void setMatricula(String matricula) {
+            this.matricula = matricula;
+        }
+
+        public double getLatitud() {
+            return latitud;
+        }
+
+        public void setLatitud(double latitud) {
+            this.latitud = latitud;
+        }
+
+        public double getLongitud() {
+            return longitud;
+        }
+
+        public void setLongitud(double longitud) {
+            this.longitud = longitud;
+        }
+
+        public String getHora() {
+            return hora;
+        }
+
+        public void setHora(String hora) {
+            this.hora = hora;
         }
     }
 }

@@ -3,6 +3,8 @@ package com.example.dblan.autobuses;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,8 +25,9 @@ public class GPS_servei extends Service {
     private LocationListener listener;
     private LocationManager locationManager;
     private String dataActual;
+    private  String matricula;
 
-
+    private SQLiteDatabase db;
 
     public GPS_servei() {
     }
@@ -38,18 +41,21 @@ public class GPS_servei extends Service {
 
     @Override
     public void onCreate() {
+
         listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 Intent i = new Intent("location_update");
 
                 //Recollim la data actual.
-                DateFormat data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                DateFormat data = new SimpleDateFormat("HH:mm:ss");
                 Date today = Calendar.getInstance().getTime();
                 dataActual = data.format(today);
 
 
+                MainActivity.Coordenada cordenadaActual;
 
+                cordenadaActual = new MainActivity.Coordenada( matricula, location.getLatitude(), location.getLongitude(), dataActual);
 
                 //Toast per veure si esta recollint les dades.
                 Toast.makeText(GPS_servei.this, "latitud: " + location.getLatitude() + " logitud: " + location.getLongitude(),
@@ -80,6 +86,16 @@ public class GPS_servei extends Service {
         //noinspection MissingPermission
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3000,0,listener);
     }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        matricula = intent.getStringExtra("matricula");
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+
 
     @Override
     public void onDestroy() {

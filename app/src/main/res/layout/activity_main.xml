@@ -97,11 +97,11 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_horizontal">
 
         <Button
             android:text="@string/entrar"
-            android:layout_width="371dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonentrar" />
 
@@ -109,12 +109,13 @@
 
 
     <LinearLayout
-        android:layout_width="371dp"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
         <Button
             android:text="@string/sortir"
-            android:layout_width="371dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonSalir" />
     </LinearLayout>
