@@ -104,4 +104,67 @@ public class GPS_servei extends Service {
             locationManager.removeUpdates(listener);
         }
     }
+
+
+
+
+
+    /*private class ConexionWebService extends AsyncTask<Void, Void, Boolean> {
+
+        public ConexionWebService() {
+
+        }*/
+
+        /**
+         * Metodo que realiza toda la tarea relacionada con el servicio POST en segundo plano.
+         * @param params
+         * @return
+         */
+        /*@Override
+        protected Boolean doInBackground(Void... params) {
+            //Boolean utilizado para saber si se ha insertado o no la ubicacion
+            boolean resul;
+            //Inicializamos el tipo HttpClient
+            HttpClient httpClient = new DefaultHttpClient();
+            //Creamos un HttpPost con la IP de nuestro WebService para realizar los Insert Intos
+            HttpPost post = new HttpPost("http://192.168.1.46:8080/WebClientRest/webresources/mapas");
+            post.setHeader("content-type", "application/json");
+            try {
+                //Creamos un objeto JSON
+                JSONObject ubicacion = new JSONObject();
+                //Introducimos el objeto JSON los atributos que queremos que tenga
+                ubicacion.put("matricula",matricula);
+                ubicacion.put("latitud", latitud);
+                ubicacion.put("longitud", longitut);
+                ubicacion.put("data", date);
+                //Creamos un tipo StringEntity para convertir el JSON a String
+                StringEntity entity = new StringEntity(ubicacion.toString());
+                post.setEntity(entity);
+                //Creamos un HttpResponse para ejecutar la sentencia POST
+                HttpResponse resp = httpClient.execute(post);
+                resul = true;
+            } catch (Exception e) {
+                Log.e("ServicioRest", "Error!", e);
+                resul = false;
+            }
+            return resul;
+        }*/
+
+        /**
+         * Metodo que se realiza despues de ejecutarse el metodo onBackground para decirnos basicamente
+         * Si se ha realizado o no el Insert Into
+         * @param result
+         */
+        /*protected void onPostExecute(Boolean result) {
+
+            if (result) {
+                Toast.makeText(GeoLocalizacion.this, "Insertado OK", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(GeoLocalizacion.this, "No insertado", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+    }*/
+
 }
