@@ -108,6 +108,7 @@ public class GPS_servei extends Service {
                 //Toast per veure si esta recollint les dades.
                 Toast.makeText(GPS_servei.this, "latitud: " + location.getLatitude() + " logitud: " + location.getLongitude(),
                         Toast.LENGTH_LONG).show();
+                //Executem la connexió.
                 con.execute();
             }
 
