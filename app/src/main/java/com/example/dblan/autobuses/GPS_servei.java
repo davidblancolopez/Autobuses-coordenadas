@@ -192,8 +192,7 @@ public class GPS_servei extends Service {
                 //Convertim el Json a String.
                 StringEntity entity = new StringEntity(ubicacio.toString());
                 post.setEntity(entity);
-                //Fem un HttpResponse per executar la sentencia Post.
-                HttpResponse resp = httpClient.execute(post);
+
                 resul = true;
             } catch (Exception e) {
                 //Excepció per si falla
