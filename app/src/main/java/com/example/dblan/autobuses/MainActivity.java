@@ -28,13 +28,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        //Inicialitzem els botons.
         btn_start = (Button) findViewById(R.id.buttonentrar);
         btn_stop = (Button) findViewById(R.id.buttonSalir);
 
 
 
-        //Abrimos la base de datos 'DBUsuarios' en modo escritura
+        //Obrim la BBDD interna en mode escritura.
         BD usdbh =
                 new BD(this, "DBAutobuses", null, 1);
 
@@ -48,38 +48,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
 
-
-        //Si hemos abierto correctamente la base de datos
-        //if(db != null)
-        //{
-        //Cerramos la base de datos
-        //    db.close();
-        //}
-
-
-
     }
 
 
+    /**
+     * Metode que inicia els botons.
+     */
     private void enableButtons() {
         Button btnSubmit = (Button) findViewById(R.id.buttonentrar);
         Button btnStop = (Button) findViewById(R.id.buttonSalir);
         btnSubmit.setOnClickListener(this);
         btnStop.setOnClickListener(this);
     }
-
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-
-
-
 
 
     /**
@@ -128,6 +108,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
         }else if(v.getId() == R.id.buttonSalir){
+            //S'atura el servei.
             Intent i = new Intent(getApplicationContext(), GPS_servei.class);
             stopService(i);
         }
@@ -163,6 +144,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     /********** METODES PER EL SERVEI GPS **************/
 
+    /**
+     * Metode que comproba la versió ANDROID de l'aplicació, si es la 23 o petita es tindra permis, si no
+     * no es tindra permis.
+     * @return
+     */
     private boolean runtime_permissionss(){
 
         if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -176,6 +162,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
 
+    /**
+     * Metode que comprova els permisos, si son 100 s'activen els botons, si no es crida al metode que comproba la
+     * versió ANDROID.
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -189,7 +182,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    static class Coordenada{
+
+    //Clase que no cal utilitzar, només era un prova.
+    /*static class Coordenada{
         private String matricula;
         private double latitud;
         private double longitud;
@@ -233,5 +228,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
         public void setHora(String hora) {
             this.hora = hora;
         }
-    }
+    }*/
 }

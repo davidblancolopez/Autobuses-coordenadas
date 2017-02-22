@@ -9,16 +9,59 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.audiofx.BassBoost;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+
+
+import android.util.Log;
+
+
+
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.provider.Settings;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 
 @SuppressWarnings("MissingPermission")
 public class GPS_servei extends Service {
@@ -26,10 +69,13 @@ public class GPS_servei extends Service {
     private LocationManager locationManager;
     private String dataActual;
     private  String matricula;
+    public double latitud;
+    public double longitud;
 
     private SQLiteDatabase db;
 
     public GPS_servei() {
+
     }
 
     @Nullable
@@ -47,20 +93,24 @@ public class GPS_servei extends Service {
             public void onLocationChanged(Location location) {
                 Intent i = new Intent("location_update");
 
+                //Iniciem la clase interna que realitza el servei.
+                ConexionWeb con = new ConexionWeb();
+                //Obtenim la latitud i la longitud
+                latitud = location.getLatitude();
+                longitud = location.getLongitude();
+
                 //Recollim la data actual.
-                DateFormat data = new SimpleDateFormat("HH:mm:ss");
+                DateFormat data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date today = Calendar.getInstance().getTime();
                 dataActual = data.format(today);
 
 
-                MainActivity.Coordenada cordenadaActual;
-
-                cordenadaActual = new MainActivity.Coordenada( matricula, location.getLatitude(), location.getLongitude(), dataActual);
-
                 //Toast per veure si esta recollint les dades.
                 Toast.makeText(GPS_servei.this, "latitud: " + location.getLatitude() + " logitud: " + location.getLongitude(),
                         Toast.LENGTH_LONG).show();
+                con.execute();
             }
+
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -106,65 +156,66 @@ public class GPS_servei extends Service {
     }
 
 
+    /**
+     * Clase interna que realitza els insert into a la BBD externa.
+     */
+    private class ConexionWeb extends AsyncTask<Void, Void, Boolean> {
 
+        public ConexionWeb() {
 
-
-    /*private class ConexionWebService extends AsyncTask<Void, Void, Boolean> {
-
-        public ConexionWebService() {
-
-        }*/
+        }
 
         /**
-         * Metodo que realiza toda la tarea relacionada con el servicio POST en segundo plano.
+         * Metode que realitza la connexió en segon pla.
          * @param params
          * @return
          */
-        /*@Override
+        @Override
         protected Boolean doInBackground(Void... params) {
-            //Boolean utilizado para saber si se ha insertado o no la ubicacion
+            //Utilitzarem aques boolean per saber si s'ha realitzat la inserció a la BBDD.
             boolean resul;
-            //Inicializamos el tipo HttpClient
+            //Iniciem HttpCLient.
             HttpClient httpClient = new DefaultHttpClient();
-            //Creamos un HttpPost con la IP de nuestro WebService para realizar los Insert Intos
-            HttpPost post = new HttpPost("http://192.168.1.46:8080/WebClientRest/webresources/mapas");
+            //Iniciem un HttpPost amb la nostra IP.
+            HttpPost post = new HttpPost("http://192.168.120.156:8080/WebClientRest/webresources/generic");
             post.setHeader("content-type", "application/json");
             try {
-                //Creamos un objeto JSON
-                JSONObject ubicacion = new JSONObject();
-                //Introducimos el objeto JSON los atributos que queremos que tenga
-                ubicacion.put("matricula",matricula);
-                ubicacion.put("latitud", latitud);
-                ubicacion.put("longitud", longitut);
-                ubicacion.put("data", date);
-                //Creamos un tipo StringEntity para convertir el JSON a String
-                StringEntity entity = new StringEntity(ubicacion.toString());
+                //Creem un jSon
+                JSONObject ubicacio = new JSONObject();
+                //Posem al objecte jSon la informació que volem insertar a la BBDD.
+                ubicacio.put("matricula",matricula);
+                ubicacio.put("latitud", latitud);
+                ubicacio.put("longitud", longitud);
+                ubicacio.put("hora", dataActual);
+
+                //Convertim el Json a String.
+                StringEntity entity = new StringEntity(ubicacio.toString());
                 post.setEntity(entity);
-                //Creamos un HttpResponse para ejecutar la sentencia POST
+                //Fem un HttpResponse per executar la sentencia Post.
                 HttpResponse resp = httpClient.execute(post);
                 resul = true;
             } catch (Exception e) {
+                //Excepció per si falla
                 Log.e("ServicioRest", "Error!", e);
                 resul = false;
             }
             return resul;
-        }*/
+        }
 
         /**
-         * Metodo que se realiza despues de ejecutarse el metodo onBackground para decirnos basicamente
-         * Si se ha realizado o no el Insert Into
+         * Metode que ens indica mitjançant un toast si s'ha pogut realitzar la inserció de dades.
          * @param result
          */
-        /*protected void onPostExecute(Boolean result) {
+        protected void onPostExecute(Boolean result) {
 
             if (result) {
-                Toast.makeText(GeoLocalizacion.this, "Insertado OK", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GPS_servei.this, "Inserció realitzada.", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(GeoLocalizacion.this, "No insertado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GPS_servei.this, "No s'ha pogut realitzar l'inserció", Toast.LENGTH_LONG).show();
             }
         }
 
 
-    }*/
+    }
 
 }
