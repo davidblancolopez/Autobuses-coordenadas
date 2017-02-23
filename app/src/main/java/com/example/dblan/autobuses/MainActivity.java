@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     private SQLiteDatabase db;
-    public String tvCon;
     private Button btn_start, btn_stop;
 
     @Override
