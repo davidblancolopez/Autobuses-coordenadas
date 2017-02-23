@@ -191,6 +191,8 @@ public class GPS_servei extends Service {
                 StringEntity entity = new StringEntity(ubicacio.toString());
                 post.setEntity(entity);
 
+                HttpResponse resp = httpClient.execute(post);
+
                 resul = true;
             } catch (Exception e) {
                 //Excepció per si falla
