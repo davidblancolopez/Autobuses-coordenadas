@@ -72,8 +72,6 @@ public class GPS_servei extends Service {
     public double latitud;
     public double longitud;
 
-    private SQLiteDatabase db;
-
     public GPS_servei() {
 
     }
